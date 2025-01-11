@@ -6,6 +6,8 @@ import { connectMongoDB } from "./db/mongoDB.js"
 
 import userRouter from './routes/user.route.js'
 import authRouter from "./routes/auth.router.js"
+import messagesRouter from "./routes/message.route.js"
+import voteRouter from "./routes/vote.route.js"
 
 dotenv.config()
 
@@ -17,8 +19,10 @@ app.use(cookieParser())
 const PORT = process.env.PORT || 5000
 
 
-app.use("/api", userRouter)
-app.use("/api", authRouter)
+app.use("/api/users", userRouter)
+app.use("/api/auth", authRouter)
+app.use("/api/messages", messagesRouter)
+app.use("/api/votes", voteRouter)
 
 
 
