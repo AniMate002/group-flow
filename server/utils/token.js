@@ -7,11 +7,11 @@ export const generateTokenAndSetCookie = (userId, res) => {
             expiresIn: "15d"
         })
 
-        res.cookie("jwt", {
+        res.cookie("jwt", token, {
             maxAge: 15*24*60*60*1000,
-            httpOnly: true,
-            sameSite: "strict",
-            secure: true
+            // httpOnly: true,
+            // sameSite: "strict",
+            // secure: true
         })
     }catch(error){
         console.log("Error in generateTokenAndSetCookie: ", error.message)

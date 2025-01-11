@@ -56,3 +56,25 @@ export const logIn = async (req, res) => {
 
 
 
+export const logOut = async (req, res) => {
+    try {
+        res.cookie("jwt", '', {maxAge: 0})
+        return res.status(200).json({message: "Logout successfully."})
+    } catch (error) {
+        console.log(" Error in logOutController: ", error.message)
+        return res.status(500).json({error: "Error 500: can not logOut"})
+    }
+}
+
+
+export const getMe = async (req, res) => {
+    try {
+        const userId = req.user._id
+        const foundUser = await User.findById(userId)
+        if(!foundUser) return res.status(404).json({error: "User not found."})
+        return res.status(200).json(foundUser)
+    } catch (error) {
+        console.log(" Error in meController: ", error.message)
+        return res.status(500).json({error: "Error 500: can not getMe"})
+    }
+}
