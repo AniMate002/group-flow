@@ -11,6 +11,7 @@ const userSchema = new Schema({
     fullname: { type: String },
     profession: { type: String },
     skills: [{ type: String }],
+    teams: [{ type: Schema.Types.ObjectId, ref: "Team", default: []}]
 }, { timestamps: true })
 
 

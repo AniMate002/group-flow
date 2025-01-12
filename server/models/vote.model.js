@@ -7,8 +7,7 @@ const voteSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    // team: { type: Schema.Types.ObjectId, required: true }, TODO: change String to REF
-    team: { type: String },
+    team: { type: Schema.Types.ObjectId, required: true }, 
     options: [
         {
             text: { type: String, required: true },

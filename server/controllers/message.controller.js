@@ -1,4 +1,5 @@
 import { Message } from "../models/message.model.js"
+import { Team } from "../models/team.model.js"
 import { User } from "../models/user.model.js"
 
 
@@ -9,9 +10,8 @@ export const sendMessage = async (req, res) => {
         const userId = req.user._id
         if(!teamId) return res.status(400).json({error: "Team id is not provided."})
         
-        // TODO: ADD TEAM ID VALIDATION
-        const team = {_id: teamId}
-        //
+        const team = await Team.findById(teamId)
+        if(!team) return res.status(404).json({error: "Team not found."})
 
         if(!text && !image) return res.status(400).json({error: "Provide text or image."})
 
@@ -19,8 +19,13 @@ export const sendMessage = async (req, res) => {
         if(!user) return res.status(404).json({error: "User nor found."})
 
         const newMessage = new Message({text, user: user._id, image, team: team._id})
-        await newMessage.save()
 
+        await Promise.all([
+            newMessage.save(),
+            Team.findByIdAndUpdate(teamId, { $push: { messages: newMessage }})
+        ])
+
+        // TODO: if image was sent, add image link to team.images field
         return res.status(202).json(newMessage)
         
     } catch (error) {

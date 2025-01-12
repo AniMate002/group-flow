@@ -1,3 +1,4 @@
+import { Team } from "../models/team.model.js"
 import { User } from "../models/user.model.js"
 import { Vote } from "../models/vote.model.js"
 
@@ -14,25 +15,27 @@ export const createVote = async (req, res) => {
         const user = await User.findById(userId)
         if(!user) return res.status(404).json({error: "Not found user."})
 
-            // DEBUGGING
-            console.log("--------------------DEBUGGING Createvote")
-        console.log("Title: ", title)
-        console.log("Description: ", description)
-        console.log("Options: ", options)
-        // 
+        // // DEBUGGING
+        // console.log("--------------------DEBUGGING Createvote")
+        // console.log("Title: ", title)
+        // console.log("Description: ", description)
+        // console.log("Options: ", options)
+        // // 
 
         if(!title || !options || options?.length === 0) return res.status(400).json({error: "Title and options can not be empty."})
 
-        // TODO: CHECK teamId VALIDITY
-        const team = { _id: teamId}
-        // 
+        const team = await Team.findById(teamId)
+        if(!team) return res.status(404).json({error: "Team not found."})
 
         for(let option of options){
             if(option.text === undefined) return res.status(400).json({error: "Vote option can not be empty."})
         }
 
         const newVote = new Vote({title, description, options, user: user._id, team: team._id})
-        await newVote.save()
+        await Promise.all([
+            newVote.save(),
+            Team.findByIdAndUpdate(teamId, { $push: { votes: newVote }})
+        ])
 
         return res.status(201).json(newVote)
 

@@ -24,7 +24,7 @@ export const signUp = async (req, res) => {
 
         generateTokenAndSetCookie(newUser._id, res)
 
-        return res.status(201).json({newUser})
+        return res.status(201).json(newUser)
 
     } catch (error) {
         console.log(" Error in signUpController: ", error.message)
