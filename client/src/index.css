@@ -19,6 +19,13 @@
   font-style: normal;
 }
 
+.inter-font-light {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
 .inter-font-bold {
   font-family: "Inter", serif;
   font-optical-sizing: auto;
