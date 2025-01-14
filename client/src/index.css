@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 
 /* GROTESK FONT */
 .space-grotesk-font {
   font-family: "Space Grotesk", serif;
   font-optical-sizing: auto;
   font-weight: normal;
+  font-style: normal;
+}
+
+.space-grotesk-font-bold {
+  font-family: "Space Grotesk", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
   font-style: normal;
 }
 

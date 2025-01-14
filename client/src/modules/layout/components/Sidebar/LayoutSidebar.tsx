@@ -8,7 +8,7 @@ import LayoutSidebarLogout from './LayoutSidebarLogout'
 const LayoutSidebar:React.FC = () => {
 
     return (
-        <div className='w-[300px] min-h-screen py-[50px] flex flex-col'>
+        <div className='w-[300px] flex-shrink-0 min-h-screen py-[50px] flex flex-col'>
             {/* LOGO */}
             <LayoutLogo />
             

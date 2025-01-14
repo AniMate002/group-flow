@@ -30,6 +30,9 @@ export const createTeam = async (req, res) => {
 export const getAllTeams = async (req, res) => {
     try {
         const teams = await Team.find()
+        .populate({
+            path: "developers"
+        })
         return res.status(200).json(teams)
     } catch (error) {
         console.log(" Error in getAllTeamsController: ", error.message)
@@ -42,6 +45,10 @@ export const getTeamById = async (req, res) => {
     try {
         const teamId = req.params.teamId
         const team = await Team.findById(teamId)
+        .populate({
+            path: "developers"
+        })
+
         if(!team) return res.status(404).json({error: "Team not found."})
         return res.status(200).json(team)
     } catch (error) {
@@ -49,6 +56,21 @@ export const getTeamById = async (req, res) => {
         return res.status(500).json({error: "Error 500: can not getTeamById"})
     }
 }
+
+export const getTeamByName = async (req, res) => {
+    try {
+        const teamName = req.params.teamName
+        const team = await Team.findOne({team_name: teamName})
+
+
+        if(!team) return res.status(404).json({error: "Team not found."})
+        return res.status(200).json(team)
+    } catch (error) {
+        console.log(" Error in getTeamByNameController: ", error.message)
+        return res.status(500).json({error: "Error 500: can not getTeamByName"})
+    }
+}
+
 
 
 export const updateTeam = async (req, res) => {
