@@ -38,3 +38,18 @@ export const SignupService = async (fullname: string, username: string, email: s
     if(data.error) throw new Error(data.error)
     return data
 }
+
+
+export const LogoutService = async () => {
+    const res = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: ""
+    })
+
+    const data = await res.json()
+    if(data.error) throw new Error(data.error)
+    return data
+}
