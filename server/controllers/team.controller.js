@@ -77,6 +77,20 @@ export const getTeamByName = async (req, res) => {
 }
 
 
+export const getTeamsByProjectType = async (req, res) => {
+    try {
+        const projectType = req.params.projectType
+
+        if(!projectType) return res.status(400).json({error: "Project type not provided."})
+
+        const filteredTeams = await Team.find({project_type: projectType}) 
+        return res.status(200).json(filteredTeams)
+    } catch (error) {
+        console.log(" Error in getTeamsByTypeController: ", error.message)
+        return res.status(500).json({error: "Error 500: can not getTeamsByType"})
+    }
+}
+
 
 export const updateTeam = async (req, res) => {
     try {

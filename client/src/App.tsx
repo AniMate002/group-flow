@@ -5,6 +5,7 @@ import HomePage from "./modules/pages/HomePage"
 import SignupPage from "./modules/pages/SignupPage"
 import { getMe } from "./services/auth.service"
 import { useQuery } from '@tanstack/react-query'
+import ExplorePage from "./modules/pages/ExplorePage"
 
 
 
@@ -29,6 +30,7 @@ function App() {
 
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />}/>
+            <Route path="/explore" element={<ExplorePage />} />
           </Route>
         </Routes>
     </>

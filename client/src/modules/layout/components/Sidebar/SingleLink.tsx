@@ -8,7 +8,7 @@ interface SingleLinkProps {
 }
 
 const SingleLink:React.FC<SingleLinkProps> = ({ to, name, children}) => {
-    const unactiveLinkStyles = 'flex items-center gap-4 w-[160px] mx-auto h-[52px] px-[16px] rounded-[14px] hover:bg-[#202024] transition-all duration-[0.1s]'
+    const unactiveLinkStyles = 'flex items-center gap-4 w-[160px] mx-auto h-[52px] px-[16px] rounded-[14px] hover:bg-[#202024] transition-all duration-[0.1s] active:scale-[0.9]'
     return (
         <NavLink 
         to={to}

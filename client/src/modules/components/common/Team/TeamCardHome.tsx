@@ -1,24 +1,12 @@
 import React from 'react'
-import { ITeam } from '../../../../types/types'
+import { ITeam, projectTypeIcons } from '../../../../types/types'
 import { Link, useNavigate } from 'react-router';
-import { FaExternalLinkAlt } from "react-icons/fa";
-import { FaGamepad, FaFilm, FaPalette, FaCubes, FaLaptopCode, FaMobileAlt, FaBitcoin, FaMicroscope, FaBriefcase } from "react-icons/fa";
+import { FaExternalLinkAlt, FaLaptopCode } from "react-icons/fa";
 
 interface TeamCardHomeProps extends ITeam {}
 
 
-const projectTypeIcons = {
-    game: FaGamepad,
-    movie: FaFilm,
-    animation: FaPalette,
-    "3d": FaCubes,
-    web: FaLaptopCode,
-    it: FaLaptopCode,
-    mobile: FaMobileAlt,
-    crypto: FaBitcoin,
-    science: FaMicroscope,
-    business: FaBriefcase,
-};
+
 
 const TeamCardHome:React.FC<TeamCardHomeProps> = ({ project_name, team_name, mainImage, coverImage, developers, images, project_type }) => {
     // console.log("DEVELOPERS: ", developers)

@@ -99,3 +99,10 @@ html {
   width: 0;
   height: 0;
 }
+
+
+.glass-shadow {
+  -webkit-box-shadow: 0px 11px 19px 6px rgba(74, 48, 74, 0.42);
+  -moz-box-shadow: 0px 11px 19px 6px rgba(74, 48, 74, 0.42);
+  box-shadow: 0px 11px 19px 6px rgba(74, 48, 74, 0.42);
+}

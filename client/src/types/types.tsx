@@ -1,3 +1,18 @@
+import { FaGamepad, FaFilm, FaPalette, FaCubes, FaLaptopCode, FaMobileAlt, FaBitcoin, FaMicroscope, FaBriefcase } from "react-icons/fa";
+
+
+export const projectTypeIcons = {
+    game: FaGamepad,
+    movie: FaFilm,
+    animation: FaPalette,
+    "3d": FaCubes,
+    web: FaLaptopCode,
+    it: FaLaptopCode,
+    mobile: FaMobileAlt,
+    crypto: FaBitcoin,
+    science: FaMicroscope,
+    business: FaBriefcase,
+};
 
 export const Project_Types = {
     game: "game",
