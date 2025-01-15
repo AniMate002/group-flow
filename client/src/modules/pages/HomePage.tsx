@@ -4,7 +4,7 @@ import HomeMain from '../components/Home/HomeMain'
 
 const HomePage: React.FC = () => {
   return (
-    <div className='flex-grow p-[50px] min-h-screen max-h-screen overflow-y-scroll'>
+    <div className='flex-grow p-[50px] min-h-screen max-h-screen hide-scrollbar  '>
       {/* HEADER */}
       <HomeHeader />
 

@@ -13,6 +13,11 @@ export const createTeam = async (req, res) => {
 
         if(!team_name || !project_name) return res.status(400).json({erorr: "Team and project name values can not be empty."})
 
+        if(!mainImage){
+            // GENERATING IMAGE WITH IMAGE PLACEHOLDER
+            mainImage = `https://avatar.iran.liara.run/username?username=${project_name}`
+        }
+
         const newTeam = new Team({team_name, project_name, description, deadline, mainImage, coverImage, admins: [user._id], developers: [user._id]})
         await Promise.all([
             newTeam.save(),

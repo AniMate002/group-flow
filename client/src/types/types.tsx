@@ -1,9 +1,22 @@
 
+export const Project_Types = {
+    game: "game",
+    movie: "movie",
+    animation: "animation",
+    "3d": "3d",
+    web: "web",
+    it: "it",
+    mobile: "mobile",
+    crypto: "crypto",
+    science: "science",
+    business: "business"
+}
 
 export interface ITeam {
     _id?: string,
     team_name: string,
     project_name: string,
+    project_type: "game" | "movie" | "animation" | "3d" | "web" | "it" | "mobile" | "crypto" | "science" | "business",
     description: string,
     deadline: string,
     messages: Array<IMessage>,

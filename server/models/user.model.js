@@ -12,7 +12,7 @@ const userSchema = new Schema({
     skills: [{ type: String, default: [] }],
     teams: [{ type: Schema.Types.ObjectId, ref: "Team", default: []}],
     mainImage: { type: String, default: "" },
-    coverImage: { type: String, default: "" }
+    coverImage: { type: String, default: "https://cdnb.artstation.com/p/assets/images/images/083/737/611/large/size-5.jpg?1736682991" }
 }, { timestamps: true })
 
 

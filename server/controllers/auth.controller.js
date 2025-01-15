@@ -19,7 +19,10 @@ export const signUp = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const newUser = new User({username, fullname, email, password: hashedPassword})
+        // GENERATING IMAGE WITH IMAGE PLACEHOLDER
+        const mainImage = `https://avatar.iran.liara.run/username?username=${username}`
+
+        const newUser = new User({username, fullname, email, password: hashedPassword, mainImage})
         await newUser.save()
 
         generateTokenAndSetCookie(newUser._id, res)

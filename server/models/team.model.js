@@ -5,6 +5,7 @@ import { model, Schema } from "mongoose";
 const teamSchema = new Schema({
     team_name: { type: String, required: true },
     project_name: { type: String, required: true },
+    project_type: { type: String, enum: ["game", "movie", "animation", "3d", "web", "it", "mobile", "crypto", "science", "business"], default: "business"},
     description: { type: String, default: "" },
     deadline: { type: String, default: "" },
     messages: [{ type: Schema.Types.ObjectId, ref: "Message", default: []}],
@@ -19,7 +20,7 @@ const teamSchema = new Schema({
         name: { type: String },
         href: { type: String }
     }],
-    votes: [{ type: Schema.Types.ObjectId, ref: "Vote", default: []}]
+    votes: [{ type: Schema.Types.ObjectId, ref: "Vote", default: []}],
 })
 
 export const Team = model("Team", teamSchema)
