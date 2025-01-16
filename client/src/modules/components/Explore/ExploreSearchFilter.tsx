@@ -35,11 +35,13 @@ const ExploreSearchFilter:React.FC<ExploreSearchFilterProps> = ({ activeProjectT
       <div 
       ref={containerRef}
       className={`flex items-center gap-2 w-1/2 flex-wrap overflow-hidden transition-all duration-[0.2s] ${showAllFilterButtons ? "h-auto" : "h-[50px]"}`}>
+        {/* DEFAULT SORT */}
         <SingleFilterButton 
         onClick={() => setActiveProjectType(null)}
         active={activeProjectType === null} 
         icon={HiOutlineSquares2X2}
         >Lobby</SingleFilterButton>
+        {/* OTHER SORT */}
         { renderedIcons}
       </div>
       {/* BUTTON TO EXPAND FILTER BUTTONS CONTAINER */}

@@ -7,13 +7,10 @@ import TeamCardHome from '../common/Team/TeamCardHome'
 import { Toast } from '../common/Alert/Mixin'
 
 const HomeMain:React.FC = () => {
-    const { data: allTeams, isLoading, isError, error } = useQuery<Array<ITeam>>({
-        queryKey: [Keys.allTeams],
-        queryFn: () => getAllTeamsService(),
-    })
-    console.log("ALL TEAMS", allTeams);
+    const { data: allTeams, isLoading, isError, error } = useQuery<Array<ITeam>>({queryKey: [Keys.allTeams]})
+    console.log("ALL TEAMS:", allTeams);
 
-    if(error?.message){
+    if(error?.message || isError){
         Toast.fire({
             text: error.message,
             icon: "error",
