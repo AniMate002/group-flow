@@ -215,6 +215,10 @@ export const getTeamsByTextQuery = async (req, res) => {
         const textQuery = req.params.textQuery
         if(!textQuery) return res.status(400).json({error: "No text query provided."})
         const teams = await Team.find({ $text: { $search: textQuery }})
+        .populate({
+            path: "developers",
+            select: "mainImage"
+        })
         return res.status(200).json(teams)
     } catch (error) {
         console.log(" Error in searchTeamsByTextQueryController: ", error.message)

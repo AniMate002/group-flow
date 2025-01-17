@@ -9,10 +9,12 @@ import ExploteSearchForm from './ExploteSearchForm';
 
 interface ExploreSearchFilterProps {
   activeProjectType: keyof typeof projectTypeIcons | null
-  setActiveProjectType: React.Dispatch<React.SetStateAction<keyof typeof projectTypeIcons | null>>
+  setActiveProjectType: React.Dispatch<React.SetStateAction<keyof typeof projectTypeIcons | null>>,
+  textQuery: string,
+  setTextQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ExploreSearchFilter:React.FC<ExploreSearchFilterProps> = ({ activeProjectType, setActiveProjectType }) => {
+const ExploreSearchFilter:React.FC<ExploreSearchFilterProps> = ({ activeProjectType, setActiveProjectType, textQuery, setTextQuery }) => {
   const [showAllFilterButtons, setShowAllFilterButtons] = useState<boolean>(false)
   const containerRef = useRef(null)
 
@@ -56,7 +58,7 @@ const ExploreSearchFilter:React.FC<ExploreSearchFilterProps> = ({ activeProjectT
 
 
       {/* SEARCH INPUT */}
-      <ExploteSearchForm isLoadingAllTeams={isLoadingAllTeams} isErrorAllTeams={isErrorAllTeams}/>
+      <ExploteSearchForm isLoadingAllTeams={isLoadingAllTeams} isErrorAllTeams={isErrorAllTeams} textQuery={textQuery} setTextQuery={setTextQuery}/>
     </div>
   )
 }

@@ -11,7 +11,7 @@ interface SingleFilterButtonProps extends React.DetailedHTMLProps<React.ButtonHT
 
 const SingleFilterButton:React.FC<SingleFilterButtonProps> = (props) => {
     const { isLoading, isError} = useQuery({queryKey: [Keys.allTeams]})
-    const { isLoading: isLoadingSearchTeams, isError: isErrorSearchTeams } = useQuery({queryKey: [Keys.searchTeams]})
+    const { isLoading: isLoadingSearchTeams, isError: isErrorSearchTeams } = useQuery({queryKey: [Keys.searchTeams], enabled: false})
     
     return (
       <button

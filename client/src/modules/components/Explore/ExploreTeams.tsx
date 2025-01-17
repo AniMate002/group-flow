@@ -15,7 +15,7 @@ const ExploreTeams:React.FC<ExploreTeamsProps> = ({ activeProjectType }) => {
     const types = Object.keys(projectTypeIcons) as  Array<keyof typeof projectTypeIcons>
 
     const { data: allTeams, isError: isErrorAllTeams, error: errorAllTeams, isLoading: isLoadingAllTeams } = useQuery<Array<ITeam>>({queryKey: [Keys.allTeams]})
-    const { data: searchTeams, isLoading: isLoadingSearchTeams, isError: isErrorSearchTeams, error: errorSearchTeams } = useQuery<Array<ITeam>>({queryKey: [Keys.searchTeams]})
+    const { data: searchTeams, isLoading: isLoadingSearchTeams, isError: isErrorSearchTeams, error: errorSearchTeams } = useQuery<Array<ITeam>>({queryKey: [Keys.searchTeams], enabled: false})
     
 
     if(errorAllTeams?.message || isErrorAllTeams || errorSearchTeams?.message || isErrorSearchTeams){
@@ -39,9 +39,13 @@ const ExploreTeams:React.FC<ExploreTeamsProps> = ({ activeProjectType }) => {
     return (
         <div className='w-full flex flex-col gap-10 mt-[50px]'>
             {
-                searchTeams?.length === 0 
+                !searchTeams
                 ?
                 renderedTypeContainers
+                :
+                renderedSearchTeams?.length === 0
+                ?
+                <h2>No teams found</h2>
                 :
                 renderedSearchTeams
             }

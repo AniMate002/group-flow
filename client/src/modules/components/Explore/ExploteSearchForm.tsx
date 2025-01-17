@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { IoSearchSharp } from "react-icons/io5";
 import { Keys } from '../../../utils/query-keys';
@@ -7,17 +7,16 @@ import { Toast } from '../common/Alert/Mixin';
 
 interface ExploteSearchFormProps {
     isLoadingAllTeams: boolean,
-    isErrorAllTeams: boolean
+    isErrorAllTeams: boolean,
+    textQuery: string,
+    setTextQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ExploteSearchForm:React.FC<ExploteSearchFormProps> = ({ isErrorAllTeams, isLoadingAllTeams }) => {
-    const [textQuery, setTextQuery] = useState<string>("")
+const ExploteSearchForm:React.FC<ExploteSearchFormProps> = ({ isErrorAllTeams, isLoadingAllTeams, textQuery, setTextQuery }) => {
+    // const [textQuery, setTextQuery] = useState<string>("")
     
-    // const { data: searchTeams, isLoading, isError, error, refetch } = useQuery({
-    //     queryKey: [Keys.searchTeams],
-    //     queryFn: () => getTeamsByTextQueryService(textQuery),
-    //     enabled: false,
-    // })
+    const { data: searchTeams, isLoading, isError, error, refetch } = useQuery({queryKey: [Keys.searchTeams], enabled: false})
+    const queryClient = useQueryClient()
 
     if(isError){
         Toast.fire({
@@ -31,6 +30,7 @@ const ExploteSearchForm:React.FC<ExploteSearchFormProps> = ({ isErrorAllTeams, i
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(textQuery) refetch()
+        else queryClient.setQueryData([Keys.searchTeams], null)
     }
     return (
         <form
