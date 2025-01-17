@@ -27,7 +27,7 @@ const ExplorePage:React.FC = () => {
             <ExploreSearchFilter activeProjectType={activeProjectType} setActiveProjectType={setActiveProjectType} textQuery={textQuery} setTextQuery={setTextQuery}/>
 
             {/* LIST OF ALL TEAMS */}
-            <ExploreTeams activeProjectType={activeProjectType}/>
+            <ExploreTeams activeProjectType={activeProjectType} textQuery={textQuery}/>
         </div>
     )
 }

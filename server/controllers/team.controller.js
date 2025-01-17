@@ -40,6 +40,7 @@ export const getAllTeams = async (req, res) => {
             select: "mainImage"
 
         })
+        console.log("GETTING ALL TEAMS: ", teams)
         return res.status(200).json(teams)
     } catch (error) {
         console.log(" Error in getAllTeamsController: ", error.message)
