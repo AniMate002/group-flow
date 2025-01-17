@@ -9,25 +9,27 @@ import ExplorePage from "./modules/pages/ExplorePage"
 import { ITeam } from "./types/types"
 import { Keys } from "./utils/query-keys"
 import { getAllTeamsService } from "./services/team.services"
+import DynamicExplorePage from "./modules/pages/DynamicExplorePage"
 
 
 
 function App() {
 
+  // GETTING CURRENT USER
   const {data: authUser} = useQuery({
     queryKey: [Keys.authUser],
     queryFn: () => getMe()
   })
 
+  // GETTING ALL TEAMS
   const { data: allTeams } = useQuery<Array<ITeam>>({
     queryKey: [Keys.allTeams],
     queryFn: () => getAllTeamsService(),
   })
   console.log("ALL TEAMS:", allTeams);
 
-  // if(isError){
-  //   return <h1>{error.message}</h1>
-  // }
+  
+
 
   return (
     <>
@@ -40,6 +42,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />}/>
             <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/explore/:projectType" element={<DynamicExplorePage />}/>
           </Route>
         </Routes>
     </>

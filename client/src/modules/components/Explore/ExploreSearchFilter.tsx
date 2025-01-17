@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react'
 import { projectTypeIcons } from '../../../types/types'
 import SingleFilterButton from './SingleFilterButton'
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
-import { IoSearchSharp } from "react-icons/io5";
 import { MdExpandMore } from "react-icons/md";
+import { useQuery } from '@tanstack/react-query';
+import { Keys } from '../../../utils/query-keys';
+import ExploteSearchForm from './ExploteSearchForm';
 
 interface ExploreSearchFilterProps {
   activeProjectType: keyof typeof projectTypeIcons | null
@@ -13,8 +15,9 @@ interface ExploreSearchFilterProps {
 const ExploreSearchFilter:React.FC<ExploreSearchFilterProps> = ({ activeProjectType, setActiveProjectType }) => {
   const [showAllFilterButtons, setShowAllFilterButtons] = useState<boolean>(false)
   const containerRef = useRef(null)
+
+  const { isLoading: isLoadingAllTeams, isError: isErrorAllTeams } = useQuery({queryKey: [Keys.allTeams]})
   
-  console.log("ICON TYPES: ", Object.keys(projectTypeIcons).slice(0, 4))
 
   const renderedIcons = (Object.keys(projectTypeIcons) as Array<keyof typeof projectTypeIcons>)
   .map((iconType, index) => <SingleFilterButton 
@@ -53,14 +56,7 @@ const ExploreSearchFilter:React.FC<ExploreSearchFilterProps> = ({ activeProjectT
 
 
       {/* SEARCH INPUT */}
-      <label className='flex items-center justify-center bg-[#35363f] rounded-xl px-[10px] ml-auto'>
-        <IoSearchSharp className='text-xl'/>
-        <input 
-        type='text'
-        placeholder='Search for Teams'
-        className='bg-[#35363f] focus:outline-none py-[12px] px-[10px]'
-        />
-      </label>
+      <ExploteSearchForm isLoadingAllTeams={isLoadingAllTeams} isErrorAllTeams={isErrorAllTeams}/>
     </div>
   )
 }

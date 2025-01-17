@@ -5,6 +5,7 @@ import { getAllTeamsService } from '../../../services/team.services'
 import { ITeam } from '../../../types/types'
 import TeamCardHome from '../common/Team/TeamCardHome'
 import { Toast } from '../common/Alert/Mixin'
+import Loading from '../common/Suspense/Loading'
 
 const HomeMain:React.FC = () => {
     const { data: allTeams, isLoading, isError, error } = useQuery<Array<ITeam>>({queryKey: [Keys.allTeams]})
@@ -20,12 +21,7 @@ const HomeMain:React.FC = () => {
     }
 
     if(isLoading){
-        return (
-            <div className='flex items-center justify-center w-full gap-4 mt-[30px]'>
-                <p className='text-[#FDF27B] text-2xl font-semibold'>Loading...</p>
-                <span className="loading loading-infinity loading-lg text-center text-[#D4D4FF]"></span>
-            </div>
-        )
+        return <Loading />
 
     }
 

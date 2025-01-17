@@ -23,4 +23,6 @@ const teamSchema = new Schema({
     votes: [{ type: Schema.Types.ObjectId, ref: "Vote", default: []}],
 })
 
+teamSchema.index({ team_name: 'text', project_name: 'text', description: 'text', project_type: 'text'})
+
 export const Team = model("Team", teamSchema)

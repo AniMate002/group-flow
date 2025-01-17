@@ -7,6 +7,12 @@ import ExploreTeams from '../components/Explore/ExploreTeams'
 
 const ExplorePage:React.FC = () => {
     const [activeProjectType, setActiveProjectType] = useState<keyof typeof projectTypeIcons | null>(null)
+
+    // const { data: searchTeams, isLoading, isError, error, refetch } = useQuery({
+    //     queryKey: [Keys.searchTeams],
+    //     queryFn: () => getTeamsByTextQueryService(textQuery),
+    //     enabled: false,
+    // })
     
     return (
         <div className='flex-grow p-[50px] hide-scrollbar'>
@@ -17,7 +23,7 @@ const ExplorePage:React.FC = () => {
             <ExploreSearchFilter activeProjectType={activeProjectType} setActiveProjectType={setActiveProjectType}/>
 
             {/* LIST OF ALL TEAMS */}
-            <ExploreTeams />
+            <ExploreTeams activeProjectType={activeProjectType}/>
         </div>
     )
 }

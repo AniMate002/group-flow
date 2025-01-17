@@ -36,7 +36,9 @@ export const getAllTeams = async (req, res) => {
     try {
         const teams = await Team.find()
         .populate({
-            path: "developers"
+            path: "developers",
+            select: "mainImage"
+
         })
         return res.status(200).json(teams)
     } catch (error) {
@@ -83,7 +85,12 @@ export const getTeamsByProjectType = async (req, res) => {
 
         if(!projectType) return res.status(400).json({error: "Project type not provided."})
 
-        const filteredTeams = await Team.find({project_type: projectType}) 
+        const filteredTeams = await Team.find({project_type: projectType})
+        .populate({
+            path: "developers",
+            select: "mainImage"
+        })
+
         return res.status(200).json(filteredTeams)
     } catch (error) {
         console.log(" Error in getTeamsByTypeController: ", error.message)
@@ -198,5 +205,19 @@ export const joinOrLeave = async (req, res) => {
     } catch (error) {
         console.log(" Error in joinOrLeaveController: ", error.message)
         return res.status(500).json({error: "Error 500: can not joinOrLeave"})
+    }
+}
+
+
+
+export const getTeamsByTextQuery = async (req, res) => {
+    try {
+        const textQuery = req.params.textQuery
+        if(!textQuery) return res.status(400).json({error: "No text query provided."})
+        const teams = await Team.find({ $text: { $search: textQuery }})
+        return res.status(200).json(teams)
+    } catch (error) {
+        console.log(" Error in searchTeamsByTextQueryController: ", error.message)
+        return res.status(500).json({error: "Error 500: can not searchTeamsByTextQuery"})
     }
 }

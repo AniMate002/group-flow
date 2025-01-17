@@ -4,36 +4,47 @@ import ExploreProjectTypeContainer from './ExploreProjectTypeContainer'
 import { useQuery } from '@tanstack/react-query'
 import { Keys } from '../../../utils/query-keys'
 import { Toast } from '../common/Alert/Mixin'
+import Loading from '../common/Suspense/Loading'
+import TeamCardHome from '../common/Team/TeamCardHome'
 
-const ExploreTeams:React.FC = () => {
+interface ExploreTeamsProps {
+    activeProjectType: keyof typeof projectTypeIcons | null
+}
+
+const ExploreTeams:React.FC<ExploreTeamsProps> = ({ activeProjectType }) => {
     const types = Object.keys(projectTypeIcons) as  Array<keyof typeof projectTypeIcons>
 
-    const { data: allTeams, isError, error, isLoading } = useQuery<Array<ITeam>>({queryKey: [Keys.allTeams]})
+    const { data: allTeams, isError: isErrorAllTeams, error: errorAllTeams, isLoading: isLoadingAllTeams } = useQuery<Array<ITeam>>({queryKey: [Keys.allTeams]})
+    const { data: searchTeams, isLoading: isLoadingSearchTeams, isError: isErrorSearchTeams, error: errorSearchTeams } = useQuery<Array<ITeam>>({queryKey: [Keys.searchTeams]})
+    
 
-    if(error?.message || isError){
+    if(errorAllTeams?.message || isErrorAllTeams || errorSearchTeams?.message || isErrorSearchTeams){
         Toast.fire({
-            text: error.message,
+            text: errorAllTeams?.message || errorSearchTeams?.message,
             icon: "error",
             showConfirmButton: false
         })
-        return <h3>Error: {error.message}</h3>
+        return <h3>Error: {errorAllTeams?.message || errorSearchTeams?.message}</h3>
     }
 
-    if(isLoading){
-        return (
-            <div className='flex items-center justify-center w-full gap-4 mt-[30px]'>
-                <p className='text-[#FDF27B] text-2xl font-semibold'>Loading...</p>
-                <span className="loading loading-infinity loading-lg text-center text-[#D4D4FF]"></span>
-            </div>
-        )
+    if(isLoadingAllTeams || isLoadingSearchTeams){
+        return <Loading />
 
     }
 
-    const renderedTypeContainers = types.map((type, index) => <ExploreProjectTypeContainer key={index} type={type} teams={allTeams?.filter(team => team.project_type === type) || []}/>)
+    const renderedSearchTeams = searchTeams?.map(team => <TeamCardHome key={team._id} {...team}/>)
+    const renderedTypeContainers = types.filter(type => activeProjectType === null ? type : type === activeProjectType)
+    .map((type, index) => <ExploreProjectTypeContainer key={index} type={type} teams={allTeams?.filter(team => team.project_type === type).slice(0,3) || []}/>)
 
     return (
         <div className='w-full flex flex-col gap-10 mt-[50px]'>
-            { renderedTypeContainers }
+            {
+                searchTeams?.length === 0 
+                ?
+                renderedTypeContainers
+                :
+                renderedSearchTeams
+            }
         </div>
     )
 }
